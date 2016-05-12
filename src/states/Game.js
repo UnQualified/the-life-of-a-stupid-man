@@ -6,6 +6,7 @@
  */
 
 import Logo from '../objects/Logo';
+import Player from '../objects/Player';
 
 export default class Game extends Phaser.State {
 
@@ -14,6 +15,8 @@ export default class Game extends Phaser.State {
 
     const {centerX: x, centerY: y} = this.world;
     this.add.existing(new Logo(this.game, x, y));
+
+    this.add.existing(new Player(this.game, 200, 400));
   }
 
 }

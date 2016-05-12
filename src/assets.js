@@ -58,6 +58,9 @@ export default {
   game: [{
     key: 'phaser',
     type: 'image'
+  }, {
+    key: 'red-square',
+    type: 'image'
   // }, {
   //   //  Example: Add an image.
   //   //
