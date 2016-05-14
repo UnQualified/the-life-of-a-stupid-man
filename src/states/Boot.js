@@ -23,7 +23,7 @@ export default class Boot extends Phaser.State {
     this.input.maxPointers = 2;
 
     // Set the alignment of the game canvas within the page.
-    this.scale.pageAlignHorizontally = true;
+    //this.scale.pageAlignHorizontally = true;
 
     // Adjust the scaling mode of the game canvas.
     // If you're developing a pixel-art game, set it to 'USER_SCALE'.
