@@ -9,6 +9,8 @@ export default class Player extends Phaser.Sprite {
     this.moving = false;
     this.target = { x: 0, y: 0 };
     this.clickPressed = false;
+    this.boundingBox = 2;
+    this.waitForStopToMoveAgain = true;
   }
 
   update() {
@@ -17,13 +19,14 @@ export default class Player extends Phaser.Sprite {
     this.handleInput();
 
     if (this.clickPressed) {
-      if (this.x < this.target.x) {
+      if (this.x < this.target.x - this.boundingBox) {
         this.x += 2;
       }
-      else if (this.x > this.target.x) {
+      else if (this.x > this.target.x + this.boundingBox) {
         this.x -= 2;
       }
       else {
+        this.x = Math.floor(this.x);
         this.clickPressed = false;
       }
     }
@@ -32,8 +35,16 @@ export default class Player extends Phaser.Sprite {
   handleInput() {
     this.controls.curr = this.game.input.mousePointer.isDown;
     if (!this.controls.curr && this.controls.prev) {
-      this.clickPressed = true;
-      this.target.x = this.game.input.mousePointer.x;
+      if (this.waitForStopToMoveAgain) {
+        if (!this.clickPressed) {
+          this.clickPressed = true;
+          this.target.x = this.game.input.mousePointer.x;
+        }
+      }
+      else {
+        this.clickPressed = true;
+        this.target.x = this.game.input.mousePointer.x;
+      }
     }
     this.controls.prev = this.controls.curr;
   }
