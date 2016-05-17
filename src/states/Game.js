@@ -21,7 +21,6 @@ export default class Game extends Phaser.State {
     this.game.physics.arcade.gravity.y = 200;
 
     this.player = new Player(this.game, 200, 400);
-    this.add.existing(this.player);
 
     this.table = new GameObject(this.game, 600, 400, 'table');
     this.vase = new GameObject(this.game, 600, 300, 'vase', true);
@@ -38,6 +37,9 @@ export default class Game extends Phaser.State {
       allowGravity: true
     });
 
+    this.vase.addSignal(this.player.selectableObjectSignal());
+
+    this.add.existing(this.player);
     this.add.existing(this.table);
     this.add.existing(this.vase);
 
