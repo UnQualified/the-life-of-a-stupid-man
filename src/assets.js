@@ -61,6 +61,12 @@ export default {
   }, {
     key: 'red-square',
     type: 'image'
+  }, {
+    key: 'table',
+    type: 'image'
+  }, {
+    key: 'vase',
+    type: 'image'
   // }, {
   //   //  Example: Add an image.
   //   //

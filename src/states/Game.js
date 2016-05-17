@@ -7,6 +7,7 @@
 
 //import Logo from '../objects/Logo';
 import Player from '../objects/Player';
+import GameObject from '../objects/GameObject';
 
 export default class Game extends Phaser.State {
 
@@ -16,7 +17,34 @@ export default class Game extends Phaser.State {
     //const {centerX: x, centerY: y} = this.world;
     //this.add.existing(new Logo(this.game, x, y));
 
-    this.add.existing(new Player(this.game, 200, 400));
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.game.physics.arcade.gravity.y = 200;
+
+    this.player = new Player(this.game, 200, 400);
+    this.add.existing(this.player);
+
+    this.table = new GameObject(this.game, 600, 400, 'table');
+    this.vase = new GameObject(this.game, 600, 300, 'vase', true);
+
+    this.game.physics.arcade.enable([this.table, this.vase]);
+
+    this.table.addPhysics({
+      collideWorldBounds: true,
+      allowGravity: false,
+      immovable: true
+    });
+    this.vase.addPhysics({
+      collideWorldBounds: true,
+      allowGravity: true
+    });
+
+    this.add.existing(this.table);
+    this.add.existing(this.vase);
+
+  }
+
+  update() {
+    this.game.physics.arcade.collide(this.table, this.vase);
   }
 
 }
