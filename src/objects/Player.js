@@ -5,12 +5,20 @@ export default class Player extends Phaser.Sprite {
 
     this.anchor.set(0.5);
 
+    // objects to control mouse input
     this.controls = { curr: null, prev: null };
-    this.moving = false;
     this.target = { x: 0, y: 0 };
     this.clickPressed = false;
     this.boundingBox = 2;
+
+    // flag to determine whether player can change direction mid-movement
     this.waitForStopToMoveAgain = true;
+
+    // flag that indicates whether the player is moving towards an object
+    this.movingTowardsObject = false;
+
+    // the object recieved from selected object signal
+    this.selectedObject = null;
   }
 
   update() {
@@ -18,6 +26,7 @@ export default class Player extends Phaser.Sprite {
     // check for mouse input
     this.handleInput();
 
+    // move the player, if correct conditions are met
     if (this.clickPressed) {
       if (this.x < this.target.x - this.boundingBox) {
         this.x += 2;
@@ -29,9 +38,20 @@ export default class Player extends Phaser.Sprite {
         this.x = Math.floor(this.x);
         this.clickPressed = false;
       }
+
+      // if moving towards a selectable object, send signal when there
+      if (this.movingTowardsObject) {
+        if (!this.isMoving()) {
+          this.movingTowardsObject = false;
+          this.selectedObject.senderSignal.dispatch();
+        }
+      }
     }
   }
 
+  // handle player input, set variables as necessary.
+  // move normally unless target is actually a selectableObject that
+  // has been clicked
   handleInput() {
     this.controls.curr = this.game.input.mousePointer.isDown;
     if (!this.controls.curr && this.controls.prev) {
@@ -55,21 +75,27 @@ export default class Player extends Phaser.Sprite {
     this.controls.prev = this.controls.curr;
   }
 
+  // function to bind signal to a selectable gameObject
   selectableObjectSignal() {
     let signal = new Phaser.Signal();
     signal.add(function() {
       this.recievedFromSignal = true;
       let target = arguments[0];
+      this.selectedObject = target;
       if (this.x < target.x) {
         this.target.x = target.x - target.width * 4;
+        this.movingTowardsObject = true;
       }
       else {
         this.target.x = target.x + target.width * 4;
+        this.movingTowardsObject = true;
       }
     }, this);
     return signal;
   }
 
+  // check whether the player is actually moving at a
+  // given moment in time
   isMoving() {
     let isMoving = false;
     this.currLoc = this.x;

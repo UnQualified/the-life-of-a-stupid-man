@@ -10,11 +10,17 @@ export default class GameObject extends Phaser.Sprite {
       this.tintColour = Math.random() * 0xffffff;
       this.mouseDown = false;
 
-      // event handling
-      //this.signal = new Phaser.Signal();
-      //this.signal.add(function() {
-      //  console.log('clicked!!!');
-      //}, this);
+      this.text = this.game.add.text(
+        this.x, this.y,
+        'Object',
+        { fill: '#f00', align: 'center' }
+      );
+      this.text.visible = false;
+
+      this.senderSignal = new Phaser.Signal();
+      this.senderSignal.add(function() {
+        // signal from object
+      }, this);
     }
   }
 
@@ -26,9 +32,11 @@ export default class GameObject extends Phaser.Sprite {
   handleSelectable() {
     if (this.input.pointerOver()) {
       this.tint = this.tintColour;
+      this.text.visible = true;
     }
     else {
       this.tint = 0xffffff;
+      this.text.visible = false;
     }
 
     if (this.input.pointerDown()) {
