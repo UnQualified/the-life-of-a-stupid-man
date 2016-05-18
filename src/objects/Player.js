@@ -19,12 +19,20 @@ export default class Player extends Phaser.Sprite {
 
     // the object recieved from selected object signal
     this.selectedObject = null;
+
+    // player state
+    this.states = {
+      normal: 'normal',
+      context: 'context'
+    };
+    this.state = this.states.normal;
   }
 
   update() {
 
     // check for mouse input
-    this.handleInput();
+    if (this.state === this.states.normal)
+      this.handleInput();
 
     // move the player, if correct conditions are met
     if (this.clickPressed) {
@@ -43,6 +51,7 @@ export default class Player extends Phaser.Sprite {
       if (this.movingTowardsObject) {
         if (!this.isMoving()) {
           this.movingTowardsObject = false;
+          this.state = this.states.context;
           this.selectedObject.senderSignal.dispatch();
         }
       }
