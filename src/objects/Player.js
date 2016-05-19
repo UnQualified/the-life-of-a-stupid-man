@@ -52,7 +52,7 @@ export default class Player extends Phaser.Sprite {
         if (!this.isMoving()) {
           this.movingTowardsObject = false;
           this.state = this.states.context;
-          this.selectedObject.senderSignal.dispatch();
+          this.selectedObject.senderSignal.dispatch('from player');
         }
       }
     }

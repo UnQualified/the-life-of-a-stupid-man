@@ -19,7 +19,8 @@ export default class SelectableGameObject extends GameObject {
     this.senderSignal = new Phaser.Signal();
     this.senderSignal.add(function() {
       // signal from object
-      console.log('sup mofo');
+      console.log(arguments[0]);
+      // initialise context menu
     }, this);
   }
 

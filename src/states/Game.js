@@ -9,6 +9,7 @@
 import Player from '../objects/Player';
 import GameObject from '../objects/GameObject';
 import SelectableGameObject from '../objects/SelectableGameObject';
+import ContextMenu from '../objects/ContextMenu';
 
 export default class Game extends Phaser.State {
 
@@ -40,6 +41,8 @@ export default class Game extends Phaser.State {
 
     this.vase.addSignal(this.player.selectableObjectSignal());
 
+    this.menu = new ContextMenu(this.game, 100, 100, 'hello?');
+
     this.add.existing(this.player);
     this.add.existing(this.table);
     this.add.existing(this.vase);
@@ -48,6 +51,8 @@ export default class Game extends Phaser.State {
 
   update() {
     this.game.physics.arcade.collide(this.table, this.vase);
+
+    this.menu.update();
   }
 
 }
