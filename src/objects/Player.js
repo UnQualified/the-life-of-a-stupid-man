@@ -1,3 +1,6 @@
+import InputHelper from './InputHelper';
+import NarrativeText from './NarrativeText';
+
 export default class Player extends Phaser.Sprite {
 
   constructor(game, x, y) {
@@ -26,6 +29,8 @@ export default class Player extends Phaser.Sprite {
       context: 'context'
     };
     this.state = this.states.normal;
+
+    this.inputHelper = new InputHelper();
   }
 
   update() {
@@ -34,6 +39,35 @@ export default class Player extends Phaser.Sprite {
     if (this.state === this.states.normal)
       this.handleInput();
 
+    this.handleMovement();
+  }
+
+  // handle player input, set variables as necessary.
+  // move normally unless target is actually a selectableObject that
+  // has been clicked
+  handleInput() {
+    let inputChecker = this.inputHelper.poll(this.game.input.mousePointer.isDown);
+    if (inputChecker) {
+      if (this.waitForStopToMoveAgain) {
+        if (!this.clickPressed) {
+          this.clickPressed = true;
+          if (!this.recievedFromSignal)
+            this.target.x = this.game.input.mousePointer.x;
+          else
+            this.recievedFromSignal = false;
+        }
+      }
+      else {
+        this.clickPressed = true;
+        if (!this.recievedFromSignal)
+          this.target.x = this.game.input.mousePointer.x;
+        else
+          this.recievedFromSignal = false;
+      }
+    }
+  }
+
+  handleMovement() {
     // move the player, if correct conditions are met
     if (this.clickPressed) {
       if (this.x < this.target.x - this.boundingBox) {
@@ -56,32 +90,6 @@ export default class Player extends Phaser.Sprite {
         }
       }
     }
-  }
-
-  // handle player input, set variables as necessary.
-  // move normally unless target is actually a selectableObject that
-  // has been clicked
-  handleInput() {
-    this.controls.curr = this.game.input.mousePointer.isDown;
-    if (!this.controls.curr && this.controls.prev) {
-      if (this.waitForStopToMoveAgain) {
-        if (!this.clickPressed) {
-          this.clickPressed = true;
-          if (!this.recievedFromSignal)
-            this.target.x = this.game.input.mousePointer.x;
-          else
-            this.recievedFromSignal = false;
-        }
-      }
-      else {
-        this.clickPressed = true;
-        if (!this.recievedFromSignal)
-          this.target.x = this.game.input.mousePointer.x;
-        else
-          this.recievedFromSignal = false;
-      }
-    }
-    this.controls.prev = this.controls.curr;
   }
 
   // function to bind signal to a selectable gameObject

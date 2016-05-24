@@ -9,7 +9,7 @@
 import Player from '../objects/Player';
 import GameObject from '../objects/GameObject';
 import SelectableGameObject from '../objects/SelectableGameObject';
-import ContextMenu from '../objects/ContextMenu';
+import NarrativeText from '../objects/NarrativeText';
 
 export default class Game extends Phaser.State {
 
@@ -41,7 +41,8 @@ export default class Game extends Phaser.State {
 
     this.vase.addSignal(this.player.selectableObjectSignal());
 
-    this.menu = new ContextMenu(this.game, 100, 100, 'hello?');
+    let messageOptions = ['hello?', 'who is there?'];
+    this.menu = new NarrativeText(this.game, 100, 100, messageOptions);
 
     this.add.existing(this.player);
     this.add.existing(this.table);
