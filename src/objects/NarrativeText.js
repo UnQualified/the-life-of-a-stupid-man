@@ -17,7 +17,7 @@ export default class NarrativeText {
 
   *textSequence(textObject) {
     for (let i = 0; i < textObject.length; i++) {
-      yield textObject[i]
+      yield textObject[i];
     }
   }
 

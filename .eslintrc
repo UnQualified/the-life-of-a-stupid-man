@@ -25,3 +25,4 @@ rules:
   quotes: [2, single]                 # Use single quotes for strings
   #linebreak-style: [2, unix]          # Favor Unix-style line endings
   semi: [2, always]                   # End lines with semicolons
+  no-console: 0
