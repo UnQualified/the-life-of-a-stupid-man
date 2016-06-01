@@ -1,4 +1,5 @@
 import GameObject from './GameObject';
+import NarrativeText from './NarrativeText';
 
 export default class SelectableGameObject extends GameObject {
 
@@ -16,16 +17,33 @@ export default class SelectableGameObject extends GameObject {
     );
     this.text.visible = false;
 
+    this.narrativeText = new NarrativeText(
+      this.game,
+      this.game.world.width / 2,
+      this.game.world.height - 45,
+      ['+', '-'],
+      {
+        fill: '#f00',
+        align: 'center'
+      }
+    );
+
     this.senderSignal = new Phaser.Signal();
     this.senderSignal.add(function() {
       // signal from object
       console.log(arguments[0]);
       // initialise context menu
+
+      this.narrativeText.text.visible = true;
     }, this);
   }
 
   update() {
     this.handleSelectable();
+    this.narrativeText.update();
+    if (this.narrativeText.finished) {
+      //console.log('reactive player!!');
+    }
   }
 
   handleSelectable() {

@@ -10,6 +10,7 @@ import Player from '../objects/Player';
 import GameObject from '../objects/GameObject';
 import SelectableGameObject from '../objects/SelectableGameObject';
 import NarrativeText from '../objects/NarrativeText';
+//import { text } from '../objects/textTrees';
 
 export default class Game extends Phaser.State {
 
@@ -43,6 +44,7 @@ export default class Game extends Phaser.State {
 
     let messageOptions = ['hello?', 'who is there?'];
     this.menu = new NarrativeText(this.game, 100, 100, messageOptions);
+    this.menu.text.visible = true;
 
     this.add.existing(this.player);
     this.add.existing(this.table);
