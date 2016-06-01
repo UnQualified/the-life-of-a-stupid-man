@@ -3,7 +3,7 @@ import NarrativeText from './NarrativeText';
 
 export default class SelectableGameObject extends GameObject {
 
-  constructor(game, x, y, key) {
+  constructor(game, x, y, key, msg) {
     super(game, x, y, key);
 
     this.inputEnabled = true;
@@ -21,7 +21,7 @@ export default class SelectableGameObject extends GameObject {
       this.game,
       this.game.world.width / 2,
       this.game.world.height - 45,
-      ['+', '-'],
+      msg,
       {
         fill: '#f00',
         align: 'center'

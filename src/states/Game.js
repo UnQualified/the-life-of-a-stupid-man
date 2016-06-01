@@ -10,7 +10,7 @@ import Player from '../objects/Player';
 import GameObject from '../objects/GameObject';
 import SelectableGameObject from '../objects/SelectableGameObject';
 import NarrativeText from '../objects/NarrativeText';
-//import { text } from '../objects/textTrees';
+import { text } from '../objects/textTrees';
 
 export default class Game extends Phaser.State {
 
@@ -26,7 +26,7 @@ export default class Game extends Phaser.State {
     this.player = new Player(this.game, 200, 400);
 
     this.table = new GameObject(this.game, 600, 400, 'table');
-    this.vase = new SelectableGameObject(this.game, 600, 300, 'vase');//, true);
+    this.vase = new SelectableGameObject(this.game, 600, 300, 'vase', text.sceneOne._1);//, true);
 
     this.game.physics.arcade.enable([this.table, this.vase]);
 
