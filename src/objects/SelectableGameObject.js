@@ -42,7 +42,7 @@ export default class SelectableGameObject extends GameObject {
     this.handleSelectable();
     this.narrativeText.update();
     if (this.narrativeText.finished) {
-      //console.log('reactive player!!');
+      // stuff that can happen before the player is reactivated
     }
   }
 

@@ -44,4 +44,11 @@ export default class NarrativeText {
       }
     }
   }
+
+  reset() {
+    this.finished = false;
+    this.text.visible = false;
+    this.test = this.textSequence(this.msg);
+    this.text.text = this.msg[0];
+  }
 }

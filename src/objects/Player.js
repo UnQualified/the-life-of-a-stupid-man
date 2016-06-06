@@ -45,6 +45,7 @@ export default class Player extends Phaser.Sprite {
     if (this.state === this.states.context) {
       if (this.selectedObject.narrativeText.finished) {
         this.state = this.states.normal;
+        this.selectedObject.narrativeText.reset();
       }
     }
   }
