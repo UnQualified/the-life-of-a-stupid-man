@@ -15,7 +15,8 @@ export default class NarrativeText {
 
     this.text = game.add.text(x, y, msg[0], this.fontConfig);
     this.text.visible = false;
-    this.test = this.textSequence(msg);
+    this.msg = msg;
+    this.test = this.textSequence(this.msg);
     this.finished = false;
 
     this.inputHelper = new InputHelper();

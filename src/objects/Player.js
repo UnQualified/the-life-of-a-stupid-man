@@ -40,6 +40,13 @@ export default class Player extends Phaser.Sprite {
       this.handleInput();
 
     this.handleMovement();
+
+    // check to see if the player can be unfrozen
+    if (this.state === this.states.context) {
+      if (this.selectedObject.narrativeText.finished) {
+        this.state = this.states.normal;
+      }
+    }
   }
 
   // handle player input, set variables as necessary.
