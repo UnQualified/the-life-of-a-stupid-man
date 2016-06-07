@@ -27,6 +27,7 @@ export default class Game extends Phaser.State {
 
     this.table = new GameObject(this.game, 600, 400, 'table');
     this.vase = new SelectableGameObject(this.game, 600, 300, 'vase', text.sceneOne._1);//, true);
+    this.vase2 = new SelectableGameObject(this.game, 100, 300, 'vase', ['__one__', '__two__']);
 
     this.game.physics.arcade.enable([this.table, this.vase]);
 
@@ -41,6 +42,7 @@ export default class Game extends Phaser.State {
     });
 
     this.vase.addSignal(this.player.selectableObjectSignal());
+    this.vase2.addSignal(this.player.selectableObjectSignal());
 
     let messageOptions = ['hello?', 'who is there?'];
     this.menu = new NarrativeText(this.game, 100, 100, messageOptions);
@@ -49,6 +51,7 @@ export default class Game extends Phaser.State {
     this.add.existing(this.player);
     this.add.existing(this.table);
     this.add.existing(this.vase);
+    this.add.existing(this.vase2);
 
   }
 
