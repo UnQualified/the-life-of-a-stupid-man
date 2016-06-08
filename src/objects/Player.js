@@ -60,7 +60,7 @@ export default class Player extends Phaser.Sprite {
         if (!this.clickPressed) {
           this.clickPressed = true;
           if (!this.recievedFromSignal)
-            this.target.x = this.game.input.mousePointer.x;
+            this.target.x = this.game.input.mousePointer.worldX;
           else
             this.recievedFromSignal = false;
         }
@@ -68,7 +68,7 @@ export default class Player extends Phaser.Sprite {
       else {
         this.clickPressed = true;
         if (!this.recievedFromSignal)
-          this.target.x = this.game.input.mousePointer.x;
+          this.target.x = this.game.input.mousePointer.worldX;
         else
           this.recievedFromSignal = false;
       }

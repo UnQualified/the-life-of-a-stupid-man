@@ -48,6 +48,10 @@ export default class Game extends Phaser.State {
     this.menu = new NarrativeText(this.game, 100, 100, messageOptions);
     this.menu.text.visible = true;
 
+    this.game.world.setBounds(0, 0, 1920, 3000);
+    this.game.camera.follow(this.player);
+    this.game.camera.deadzone = new Phaser.Rectangle(450, 200, 145, 185);
+
     this.add.existing(this.player);
     this.add.existing(this.table);
     this.add.existing(this.vase);
