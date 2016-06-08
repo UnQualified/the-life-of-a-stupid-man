@@ -23,11 +23,13 @@ export default class Game extends Phaser.State {
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.arcade.gravity.y = 200;
 
-    this.player = new Player(this.game, 200, 400);
+    this.player = new Player(this.game, 200, 425);
 
     this.table = new GameObject(this.game, 600, 400, 'table');
     this.vase = new SelectableGameObject(this.game, 600, 300, 'vase', text.sceneOne._1);//, true);
     this.vase2 = new SelectableGameObject(this.game, 100, 300, 'vase', ['__one__', '__two__']);
+
+    this.cafe = new GameObject(this.game, 200, 230, 'cafe');
 
     this.game.physics.arcade.enable([this.table, this.vase]);
 
@@ -50,9 +52,10 @@ export default class Game extends Phaser.State {
 
     this.game.world.setBounds(0, 0, 1920, 3000);
     this.game.camera.follow(this.player);
-    this.game.camera.deadzone = new Phaser.Rectangle(450, 200, 145, 185);
+    this.game.camera.deadzone = new Phaser.Rectangle(450, 390, 145, 60);
 
     this.add.existing(this.player);
+    this.add.existing(this.cafe);
     this.add.existing(this.table);
     this.add.existing(this.vase);
     this.add.existing(this.vase2);

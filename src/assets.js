@@ -67,6 +67,9 @@ export default {
   }, {
     key: 'vase',
     type: 'image'
+  }, {
+    key: 'cafe',
+    type: 'image'
   // }, {
   //   //  Example: Add an image.
   //   //
