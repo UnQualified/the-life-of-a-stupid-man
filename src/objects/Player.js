@@ -26,7 +26,8 @@ export default class Player extends Phaser.Sprite {
     // player state
     this.states = {
       normal: 'normal',
-      context: 'context'
+      context: 'context',
+      stopped: 'stopped'
     };
     this.state = this.states.normal;
 
@@ -36,8 +37,9 @@ export default class Player extends Phaser.Sprite {
   update() {
 
     // check for mouse input
-    if (this.state === this.states.normal)
+    if (this.state === this.states.normal) {
       this.handleInput();
+    }
 
     this.handleMovement();
 
@@ -76,6 +78,12 @@ export default class Player extends Phaser.Sprite {
   }
 
   handleMovement() {
+
+    if (this.state === this.states.stopped) {
+        // stop the player by exiting the function
+        return;
+    }
+
     // move the player, if correct conditions are met
     if (this.clickPressed) {
       if (this.x < this.target.x - this.boundingBox) {
@@ -129,6 +137,16 @@ export default class Player extends Phaser.Sprite {
     }
     this.prevLoc = this.currLoc;
     return isMoving;
+  }
+
+  stop() {
+    this.state = this.states.stopped;
+    this.target.x = this.x;
+    this.target.y = this.y;
+  }
+
+  getRectangle() {
+    return new Phaser.Rectangle(this.x, this.y, this.width, this.height);
   }
 
 }
