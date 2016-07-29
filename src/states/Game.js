@@ -33,16 +33,20 @@ export default class Game extends Phaser.State {
       });
     });
 
+    this.testText = new NarrativeText(this.game, 400, 250, ['WHAASSSUP!!', '????????'], 'timer');
+    this.testText.text.visible = true;
+
     this.game.world.setBounds(0, 0, 1920, 3000);
     this.game.camera.follow(this.player);
     this.game.camera.deadzone = new Phaser.Rectangle(450, 390, 145, 60);
 
     this.add.existing(this.player);
-    this.add.existing(this.cafe);
+    //this.add.existing(this.cafe);
   }
 
   update() {
     this.eventPoint.update(this.player.getRectangle());
+    this.testText.update();
   }
 
 }
