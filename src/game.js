@@ -1,8 +1,8 @@
 import * as Phaser from 'phaser'
-import { Load } from './states/load.js'
-import { TestNarrativeText } from './states/testNarrativeText'
-import { TestPlayer } from './states/testPlayer'
-import { TestContextMenu } from './states/testContextMenu'
+import { Load } from './states/load'
+import { TestNarrativeText } from './states/test/testNarrativeText'
+import { TestPlayer } from './states/test/testPlayer'
+import { TestContextMenu } from './states/test/testContextMenu'
 
 export class Game extends Phaser.Game {
   constructor () {

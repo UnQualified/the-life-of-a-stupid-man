@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser'
-import Player from '../objects/Player'
-import NarrativeText from '../objects/NarrativeText'
-import { sparks } from '../objects/snippets'
+import Player from '../../objects/Player'
+import NarrativeText from '../../objects/NarrativeText'
+import { sparks } from '../../objects/snippets'
 
 export class TestPlayer extends Phaser.State {
 

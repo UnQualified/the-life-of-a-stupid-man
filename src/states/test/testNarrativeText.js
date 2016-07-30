@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser'
-import NarrativeText from '../objects/NarrativeText'
+import NarrativeText from '../../objects/NarrativeText'
 import assert from 'assert'
-import Tester from '../objects/Tester'
+import Tester from '../../objects/Tester'
 
 export class TestNarrativeText extends Phaser.State {
   preload () {

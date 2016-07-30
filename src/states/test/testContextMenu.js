@@ -1,7 +1,7 @@
 import * as Phaser from 'phaser'
-import ContextMenu from '../objects/ContextMenu'
-import Player from '../objects/Player'
-import GameObject from '../objects/GameObject'
+import ContextMenu from '../../objects/ContextMenu'
+import Player from '../../objects/Player'
+import GameObject from '../../objects/GameObject'
 
 export class TestContextMenu extends Phaser.State {
 
