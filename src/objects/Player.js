@@ -11,7 +11,7 @@ export default class Player extends Phaser.Sprite {
     this.moving = false
     this.canMove = true
     this.boundingBox = 2
-    this.speed = 110
+    this.speed = 210
     this.context = {
       fromSignal: false,
       engaged: false
@@ -24,6 +24,9 @@ export default class Player extends Phaser.Sprite {
 
     // add physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE)
+
+    // setup the camera
+    this.setupCamera()
 
     // add the player
     this.game.add.existing(this)
@@ -96,6 +99,25 @@ export default class Player extends Phaser.Sprite {
     console.log('The menu was clicked for the player!')
     this.stop()
     this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.start, this)
+  }
+
+  setupCamera () {
+    // camera setup
+    let zone = {
+      x: (this.game.width * 0.25) - (this.game.width * 0.05),
+      y: this.game.height * 0.3,
+      width: this.game.width * 0.3,
+      height: this.game.height * 0.5
+    }
+    this.game.camera.follow(this)
+    this.game.camera.deadzone = new Phaser.Rectangle(zone.x, zone.y, zone.width, zone.height)
+  }
+
+  render () {
+    // show the camera deadzone
+    let zone = this.game.camera.deadzone
+    this.game.context.fillStyle = 'rgba(255,0,0,0.6)'
+    this.game.context.fillRect(zone.x, zone.y, zone.width, zone.height)
   }
 
 }

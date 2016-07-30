@@ -33,7 +33,7 @@ export default class Tester {
           reject(reason)
         })
       } else {
-        throw new Error('no tests to run');
+        throw new Error('no tests to run')
       }
     })
     return testsRun
