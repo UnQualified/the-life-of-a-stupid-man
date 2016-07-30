@@ -17,8 +17,14 @@ System.config({
     "assert": "github:jspm/nodelibs-assert@0.1.0",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "contextMenu": "./src/objects/ContextMenu",
     "core-js": "npm:core-js@1.2.7",
+    "gameObject": "./src/objects/GameObject",
+    "inputHelper": "./src.objects/InputHelper",
+    "narrativeText": "./src/objects/NarrativeText",
     "phaser": "github:photonstorm/phaser@2.6.1",
+    "player": "./src/objects/Player",
+    "tester": "./src/objects/Tester",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.4.1"
     },

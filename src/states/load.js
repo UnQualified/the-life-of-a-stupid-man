@@ -7,6 +7,7 @@ export class Load extends Phaser.State {
 
     // load assets
     this.game.load.image('red-square', 'assets/images/red-square.png')
+    this.game.load.image('person', 'assets/images/person.png')
 
     this.test = false
   }
