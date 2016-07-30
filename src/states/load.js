@@ -15,9 +15,9 @@ export class Load extends Phaser.State {
   create () {
     if (this.test) {
       // this.game.state.start('testNarrativeText')
-      // this.game.state.start('testContextMenu')
+      this.game.state.start('testContextMenu')
     } else {
-
+      this.game.state.start('intro')
     }
   }
 }

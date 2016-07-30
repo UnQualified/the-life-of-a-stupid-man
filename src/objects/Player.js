@@ -11,7 +11,7 @@ export default class Player extends Phaser.Sprite {
     this.moving = false
     this.canMove = true
     this.boundingBox = 2
-    this.speed = 2 // this should be done using time, not update
+    this.speed = 110
     this.context = {
       fromSignal: false,
       engaged: false
@@ -22,6 +22,9 @@ export default class Player extends Phaser.Sprite {
 
     this.arrivedAtObject = new Phaser.Signal()
 
+    // add physics
+    this.game.physics.enable(this, Phaser.Physics.ARCADE)
+
     // add the player
     this.game.add.existing(this)
   }
@@ -29,7 +32,6 @@ export default class Player extends Phaser.Sprite {
   update () {
     this.handleInput()
     this.handleMovement()
-    // console.log('moving: ', this.moving);
   }
 
   handleInput () {
@@ -48,12 +50,12 @@ export default class Player extends Phaser.Sprite {
   handleMovement () {
     if (this.moving && this.canMove) {
       if (this.x < this.target.x - this.boundingBox) {
-        this.x += this.speed
+        this.body.velocity.x = this.speed
       } else if (this.x > this.target.x + this.boundingBox) {
-        this.x -= this.speed
+        this.body.velocity.x = this.speed * -1
       } else {
+        this.body.velocity.x = 0
         this.x = Math.floor(this.x)
-        // console.log(this.context.fromSignal);
         this.moving = false
         if (this.context.fromSignal) {
           this.context.fromSignal = false
