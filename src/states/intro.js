@@ -1,6 +1,8 @@
 import * as Phaser from 'phaser'
 import Player from 'player'
 import GameObject from 'gameObject'
+import NarrativeText from 'narrativeText'
+import { sparks } from '../objects/snippets'
 
 export class Intro extends Phaser.State {
 
@@ -9,7 +11,14 @@ export class Intro extends Phaser.State {
   }
 
   create () {
+    // narrative text objects
+    this.narrText = new NarrativeText(this.game, 0, 0, sparks[0], 3500)
+
+    // remember to add the player last, so that they are on top of all other objects
     this.player = new Player(this.game, 100, 300, 'person')
+
+    // static objects
+    this.game.add.sprite(0, 0, 'cafe')
 
     // mile markers
     this.mileMarkers = [
@@ -23,6 +32,24 @@ export class Intro extends Phaser.State {
 
     // world setup
     this.game.world.setBounds(0, 0, 3500, 450)
+
+    // add the signals
+    this.mileMarkers.forEach(gameObject => {
+      gameObject.signalOnClick.add(this.player.gameObjectSignal, this.player)
+      this.player.arrivedAtObject.add(this.player.resumeSignal, this.player)
+    })
+    this.narrText.onFinished.add(this.player.resumeSignal, this.player)
+  }
+
+  update () {
+    // this needs to be encapsulated somehow...
+    // perhaps using another object?
+    if (this.player.x > 250) {
+      if (!this.narrText.started) {
+        this.player.stop()
+        this.narrText.startCycleSignal()
+      }
+    }
   }
 
   render () {

@@ -21,16 +21,10 @@ export default class NarrativeText {
     this.finished = false
     this.location = { x: x, y: y }
 
-    /** this is not used as there is no events object to bind to * /
-    this.onFinished = new Phaser.Signal();
-    this.onFinished.add((msg) => {
-      console.log(msg);
-      if (typeof callback === 'function') {
-        callback();
-      }
-    });
-    */
+    // Phaser Signal for when the loop has finished
+    this.onFinished = new Phaser.Signal()
 
+    // create the Phaser.Text objects
     this.setupText(this.game, 0, 0, style)
   }
 
@@ -47,7 +41,10 @@ export default class NarrativeText {
     })
   }
 
-  /** Starts displaying the text*/
+  /**
+   * Starts displaying the text
+   * -> returns a Promise that resolves when the loop is complete
+   */
   startCycle () {
     if (!this.started && !this.finished) {
       this.started = true
@@ -69,7 +66,33 @@ export default class NarrativeText {
     }
   }
 
-  /** Generator function that yields the next Phaser.Text object */
+  /**
+   * Starts displaying the text
+   * -> dispatches the onFinished Phaser.Signal when complete
+   */
+  startCycleSignal () {
+    if (!this.started && !this.finished) {
+      this.started = true
+      let stuff = this.getText()
+      this.currentText = stuff.next().value
+      this.game.add.existing(this.currentText)
+      // do the loop
+      this.game.time.events.repeat(this.time, this.text.length, () => {
+        this.currentText.destroy()
+        this.currentText = stuff.next().value
+        if (this.currentText !== undefined) {
+          this.game.add.existing(this.currentText)
+        } else {
+          this.finished = true
+          this.onFinished.dispatch(this)
+        }
+      }, this)
+    }
+  }
+
+  /**
+   * Generator function that yields the next Phaser.Text object
+   */
   * getText () {
     for (let i = 0; i < this.text.length; i++) {
       yield this.text[i].phaserText

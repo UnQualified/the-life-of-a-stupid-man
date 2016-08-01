@@ -5,7 +5,7 @@ export default class GameObject extends Phaser.Sprite {
 
   constructor (game, x, y, key) {
     super(game, x, y, key)
-    this.anchor.setTo(0.5)
+    this.anchor.setTo(0.5, 1)
     this.selected = false
 
     this.menu = new ContextMenu(this.game, this.x, this.y - 50, 'Yes?')

@@ -39,7 +39,6 @@ export class TestNarrativeText extends Phaser.State {
         throw new Error('startCycle error')
       })
     }
-    // console.log(this.narrText.onFinished);
   }
 
   /** test setupText */

@@ -6,7 +6,7 @@ export default class Player extends Phaser.Sprite {
   constructor (game, x, y, sprite) {
     super(game, x, y, sprite)
 
-    this.anchor.setTo(0.5)
+    this.anchor.setTo(0.5, 1)
     this.target = { x: x, y: y }
     this.moving = false
     this.canMove = true
@@ -74,6 +74,7 @@ export default class Player extends Phaser.Sprite {
   stop () {
     this.moving = false
     this.canMove = false
+    this.body.velocity = { x: 0, y: 0 }
     this.target = { x: this.x, y: this.y }
   }
 
@@ -99,6 +100,11 @@ export default class Player extends Phaser.Sprite {
     console.log('The menu was clicked for the player!')
     this.stop()
     this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.start, this)
+  }
+
+  resumeSignal () {
+    this.stop()
+    this.start()
   }
 
   setupCamera () {
