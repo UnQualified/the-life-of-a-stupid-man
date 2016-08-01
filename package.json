@@ -25,6 +25,7 @@
   "standard": {
     "ignore": [
       "config.js"
-    ]
+    ],
+    "globals": [ "Phaser" ]
   }
 }

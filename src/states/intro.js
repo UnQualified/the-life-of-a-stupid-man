@@ -2,6 +2,7 @@ import * as Phaser from 'phaser'
 import Player from 'player'
 import GameObject from 'gameObject'
 import NarrativeText from 'narrativeText'
+import Environment from 'environment'
 import { sparks } from '../objects/snippets'
 
 export class Intro extends Phaser.State {
@@ -39,6 +40,9 @@ export class Intro extends Phaser.State {
       this.player.arrivedAtObject.add(this.player.resumeSignal, this.player)
     })
     this.narrText.onFinished.add(this.player.resumeSignal, this.player)
+
+    this.environment = new Environment(this.game)
+    this.environment.addRain()
   }
 
   update () {
@@ -58,5 +62,4 @@ export class Intro extends Phaser.State {
       this.player.render()
     }
   }
-
 }

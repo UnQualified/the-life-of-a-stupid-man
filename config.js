@@ -19,6 +19,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "contextMenu": "./src/objects/ContextMenu",
     "core-js": "npm:core-js@1.2.7",
+    "environment": "./src/objects/Environment",
     "gameObject": "./src/objects/GameObject",
     "inputHelper": "./src.objects/InputHelper",
     "narrativeText": "./src/objects/NarrativeText",
