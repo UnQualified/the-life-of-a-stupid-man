@@ -11,7 +11,7 @@ export default class Player extends Phaser.Sprite {
     this.moving = false
     this.canMove = true
     this.boundingBox = 2
-    this.speed = 210
+    this.speed = 110 // * 3; /* for debug */
     this.context = {
       fromSignal: false,
       engaged: false
@@ -27,6 +27,15 @@ export default class Player extends Phaser.Sprite {
 
     // setup the camera
     this.setupCamera()
+
+    // new stuff
+    this.animationStarted = false
+    this.animations.add('walk', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
+    this.animations.add('still', [0])
+    // .animations.play('walk', 10, true);
+    this.smoothed = false
+    let scale = 1.5
+    this.scale = { x: scale, y: scale }
 
     // add the player
     this.game.add.existing(this)
@@ -54,12 +63,27 @@ export default class Player extends Phaser.Sprite {
     if (this.moving && this.canMove) {
       if (this.x < this.target.x - this.boundingBox) {
         this.body.velocity.x = this.speed
+        // this.animations.play('walk', 10, true);
+        this.startAnimation('walk', 10)
+        if (this.scale.x < 0) {
+          this.scale.x = this.scale.x * -1
+        }
       } else if (this.x > this.target.x + this.boundingBox) {
         this.body.velocity.x = this.speed * -1
+        // this.scale.x = -this.scale.x;
+        // this.animations.play('walk', 10, true);
+        this.startAnimation('walk', 10)
+        if (this.scale.x > 0) {
+          this.scale.x = this.scale.x * -1
+        }
       } else {
         this.body.velocity.x = 0
         this.x = Math.floor(this.x)
         this.moving = false
+        // this.animations.play('still', 1, false);
+        // this.frame = 0;
+        // this.startAnimation('still', 1, false);
+        this.stopAnimation()
         if (this.context.fromSignal) {
           this.context.fromSignal = false
           this.context.engaged = true
@@ -70,12 +94,26 @@ export default class Player extends Phaser.Sprite {
     }
   }
 
+  startAnimation (anim, speed, loop = true) {
+    if (!this.animationStarted) {
+      this.animations.play(anim, speed, loop)
+      this.animationStarted = true
+    }
+  }
+
+  stopAnimation () {
+    this.animations.stop()
+    this.animationStarted = false
+    this.frame = 0
+  }
+
   /** stop moving the player */
   stop () {
     this.moving = false
     this.canMove = false
     this.body.velocity = { x: 0, y: 0 }
     this.target = { x: this.x, y: this.y }
+    this.stopAnimation()
   }
 
   /** start moving the player */
@@ -109,14 +147,19 @@ export default class Player extends Phaser.Sprite {
 
   setupCamera () {
     // camera setup
-    let zone = {
-      x: (this.game.width * 0.25) - (this.game.width * 0.05),
-      y: this.game.height * 0.3,
-      width: this.game.width * 0.3,
-      height: this.game.height * 0.5
-    }
-    this.game.camera.follow(this)
-    this.game.camera.deadzone = new Phaser.Rectangle(zone.x, zone.y, zone.width, zone.height)
+    // let zone = {
+    //  x: (this.game.width * 0.3), // - (this.game.width * 0.05),
+    //  y: this.game.height * 0.3,
+    //  width: this.game.width * 0.075,
+    //  height: this.game.height * 0.5
+    // }
+    // this.game.camera.follow(this, Phaser.Camera.FOLLOW_LOCKON, 0.04, 0.04)
+    this.game.camera.y = 300
+    console.log(this.game.camera.y)
+    // while (this.game.camera.y < this.game.height - 450) {
+    //  this.game.camera.y += 5;
+    // }
+    // this.game.camera.deadzone = new Phaser.Rectangle(zone.x, zone.y, zone.width, zone.height)
   }
 
   render () {
