@@ -11,7 +11,7 @@ export class Load extends Phaser.State {
     this.game.load.image('cafe', 'assets/images/cafe.png')
     this.game.load.image('long-building', 'assets/images/long-building.png')
 
-    this.game.load.spritesheet('player', 'assets/spritesheets/stupid-man.png', 65, 100, 12)
+    this.game.load.spritesheet('player', 'assets/spritesheets/stupid-man.png', 65, 94, 12)
 
     this.test = false
   }

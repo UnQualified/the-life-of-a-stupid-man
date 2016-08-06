@@ -40,9 +40,6 @@ export class Intro extends Phaser.State {
     // world setup
     this.game.world.setBounds(0, 0, 3500, 900)// 450)
 
-    // this must always be called after world.setBounds()
-    this.game.camera.y = 0
-
     // add the signals
     /*
     this.mileMarkers.forEach(gameObject => {
@@ -58,8 +55,8 @@ export class Intro extends Phaser.State {
     // wait, then move the camera
     this.cameraFollowingPlayer = false
     this.game.time.events.add(Phaser.Timer.SECOND * 3, function () {
-      this.game.camera.follow(this.zero, Phaser.Camera.FOLLOW_LOCKON, 0.005, 0.005)
-      console.log(this.game.camera)
+      // get the camera to follow the player
+      this.player.setupCamera()
     }, this)
   }
 
@@ -72,20 +69,6 @@ export class Intro extends Phaser.State {
         this.player.stop()
         this.narrText.startCycleSignal()
       }
-    }
-
-    if (!this.cameraFollowingPlayer && this.game.camera.y >= this.yOffset) {
-      // this should move back to the player class (needs deadzone resetting etc...)
-      this.cameraFollowingPlayer = true
-      let zone = {
-        x: (this.game.width * 0.3), // - (this.game.width * 0.05),
-        y: this.game.height * 0.3,
-        width: this.game.width * 0.075,
-        height: this.game.height * 0.5
-      }
-      // @TODO: need to check the deadzone is still actually working...
-      this.game.camera.deadzone = new Phaser.Rectangle(zone.x, zone.y, zone.width, zone.height)
-      this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_LOCKON, 0.01, 0.01)
     }
   }
 

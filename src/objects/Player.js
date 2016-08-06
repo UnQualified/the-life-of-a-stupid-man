@@ -11,12 +11,13 @@ export default class Player extends Phaser.Sprite {
     this.moving = false
     this.canMove = true
     this.boundingBox = 2
-    this.speed = 110 // * 3; /* for debug */
+    this.speed = 85 // * 4; /* for debug */
     this.context = {
       fromSignal: false,
       engaged: false
     }
     // use the engaged option to stop the player when they reach a game object
+    this.isBeingFollowedByCamera = false
 
     this.inputHelper = new InputHelper()
 
@@ -25,10 +26,7 @@ export default class Player extends Phaser.Sprite {
     // add physics
     this.game.physics.enable(this, Phaser.Physics.ARCADE)
 
-    // setup the camera
-    this.setupCamera()
-
-    // new stuff
+    // animations
     this.animationStarted = false
     this.animations.add('walk', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
     this.animations.add('still', [0])
@@ -145,28 +143,31 @@ export default class Player extends Phaser.Sprite {
     this.start()
   }
 
+  setDeadZone () {
+    let zone = {
+      x: this.game.width * 0.3,
+      y: (this.game.height * 0.3) + this.game.yOffset,
+      width: this.game.width * 0.015,
+      height: this.game.height * 0.6
+    }
+    return new Phaser.Rectangle(zone.x, zone.y, zone.width, zone.height)
+  }
+
   setupCamera () {
-    // camera setup
-    // let zone = {
-    //  x: (this.game.width * 0.3), // - (this.game.width * 0.05),
-    //  y: this.game.height * 0.3,
-    //  width: this.game.width * 0.075,
-    //  height: this.game.height * 0.5
-    // }
-    // this.game.camera.follow(this, Phaser.Camera.FOLLOW_LOCKON, 0.04, 0.04)
-    this.game.camera.y = 300
-    console.log(this.game.camera.y)
-    // while (this.game.camera.y < this.game.height - 450) {
-    //  this.game.camera.y += 5;
-    // }
-    // this.game.camera.deadzone = new Phaser.Rectangle(zone.x, zone.y, zone.width, zone.height)
+    this.game.camera.follow(this, Phaser.Camera.FOLLOW_LOCKON, 0.01, 0.01)
+    this.isBeingFollowedByCamera = true
+    this.game.camera.deadzone = this.setDeadZone()
   }
 
   render () {
     // show the camera deadzone
-    let zone = this.game.camera.deadzone
-    this.game.context.fillStyle = 'rgba(255,0,0,0.6)'
-    this.game.context.fillRect(zone.x, zone.y, zone.width, zone.height)
+    if (this.isBeingFollowedByCamera) {
+      this.game.context.fillStyle = 'rgba(255,0,0,0.6)'
+      let zone = this.game.camera.deadzone
+      if (this.game.camera.deadzone !== null) {
+        this.game.context.fillRect(zone.x, zone.y, zone.width, zone.height)
+      }
+    }
   }
 
 }
