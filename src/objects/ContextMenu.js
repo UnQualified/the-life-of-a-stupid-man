@@ -23,7 +23,7 @@ export default class ContextMenu extends Phaser.Text {
     this.events.onInputOut.add(item => {
       item.fill = '#fff';
     });
-    this.events.onInputUp.add(item => {
+    this.events.onInputUp.add(() => {
       this.signalOnClick.dispatch(this, 'dispatched');
     });
 

@@ -17,6 +17,6 @@ let sparks = [
     '- those wildly-blooming flowers of fire -',
     'he would trade his life for the chance to hold them in his hands.'
   ]
-]
+];
 
-export { sparks }
+export { sparks };

@@ -20,7 +20,7 @@ export class TestNarrativeText extends Phaser.State {
     });
 
     // run all the tests
-    this.testSetupText().then(value => {
+    this.testSetupText().then(() => {
       Tester.colourConsole('green', 'Yay! NarrativeText is all good! \ud83d\ude01');
       // go to the next state, after all the tests have passed
       // this.game.state.start('testPlayer');
@@ -31,12 +31,12 @@ export class TestNarrativeText extends Phaser.State {
 
   update () {
     if (!this.narrText.started) {
-      this.narrText.startCycle().then(value => {
+      this.narrText.startCycle().then(() => {
         Tester.colourConsole('yellow', '=> Finished startCycle... Starting testPlayer state');
         this.game.state.start('testPlayer');
       }).catch(reason => {
         Tester.colourConsole('red', '=> Could not finish startCycle... Not moving to new state');
-        throw new Error('startCycle error');
+        throw new Error(`startCycle error: ${reason}`);
       });
     }
   }

@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 
 export default class NarrativeText {
 
-  constructor (game, x, y, text, time = 3000, callback) {
+  constructor (game, x, y, text, time = 3000) {
     let style = {
       font: 'bold 16px monospace, sans-serif',
       fill: '#fff',
@@ -51,7 +51,8 @@ export default class NarrativeText {
       let stuff = this.getText();
       this.currentText = stuff.next().value;
       this.game.add.existing(this.currentText);
-      return new Promise((resolve, reject) => {
+      // removed reject
+      return new Promise((resolve) => {
         this.game.time.events.repeat(this.time, this.text.length, () => {
           this.currentText.destroy();
           this.currentText = stuff.next().value;

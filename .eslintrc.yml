@@ -17,3 +17,7 @@ rules:
   semi:
     - error
     - always
+  no-console:
+    - 0
+  no-unused-vars:
+    - 2

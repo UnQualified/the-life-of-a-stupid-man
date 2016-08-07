@@ -122,7 +122,7 @@ export default class Player extends Phaser.Sprite {
   }
 
   /** this is the signal when a GameObject is clicked */
-  gameObjectSignal (gameObject, thing) {
+  gameObjectSignal (gameObject) {
     if (this.x < gameObject.x) {
       this.target.x = gameObject.x - gameObject.width - 20;
     } else {
@@ -133,7 +133,7 @@ export default class Player extends Phaser.Sprite {
 
   /** Method to handle signal when a context menu on a game object is clicked */
   menuClickSignal (menu) {
-    console.log('The menu was clicked for the player!');
+    console.log('The menu was clicked for the player!', menu);
     this.stop();
     this.game.time.events.add(Phaser.Timer.SECOND * 0.5, this.start, this);
   }

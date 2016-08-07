@@ -28,13 +28,13 @@ export class TestPlayer extends Phaser.State {
     if (this.player.x > this.text_1.location.x && !this.text_1.started) {
       this.player.stop();
       this.text_1.startCycle().then(value => {
-        console.log('finished doing the text thing');
+        console.log('finished doing the text thing', value);
         this.player.start();
       });
     } else if (this.player.x > this.text_2.location.x && !this.text_2.started) {
       this.player.stop();
       this.text_2.startCycle().then(value => {
-        console.log('done too');
+        console.log('done too', value);
         this.player.start();
       });
     }

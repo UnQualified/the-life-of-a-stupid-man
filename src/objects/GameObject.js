@@ -23,7 +23,7 @@ export default class GameObject extends Phaser.Sprite {
     this.game.add.existing(this);
   }
 
-  handleUp (item) {
+  handleUp () {
     this.selected = true;
     this.game.selectableObjectSelected = true;
 
@@ -31,18 +31,18 @@ export default class GameObject extends Phaser.Sprite {
     this.signalOnClick.dispatch(this, this);
   }
 
-  handleOver (item) {
+  handleOver () {
     // give a nice highlight
     this.tint = 0xff0000;
   }
 
-  handleOut (item) {
+  handleOut () {
     // remove the highlight
     this.tint = 0xffffff;
   }
 
   /** Method to handle signals when the menu is clicked */
-  menuClick (item) {
+  menuClick () {
     console.log('clicked the menu');
     this.menu.visible = false;
     this.selected = false;
@@ -50,6 +50,7 @@ export default class GameObject extends Phaser.Sprite {
 
   /** Method to handle signals when player has reached the object */
   playerHasArrived (player) {
+    console.log(player);
     console.log('player has arrived!');
     this.menu.visible = true;
   }

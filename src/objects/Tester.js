@@ -7,7 +7,7 @@ export default class Tester {
   }
 
   addEqualTest (expected, actual, name = 'equal test') {
-    let p = new Promise((resolve, reject) => {
+    let p = new Promise((resolve) => {
       resolve(assert.equal(expected, actual, name));
       this.passMessage(name);
     });
@@ -15,7 +15,7 @@ export default class Tester {
   }
 
   addNotEqualTest (expected, actual, name = 'not equal test') {
-    let p = new Promise((resolve, reject) => {
+    let p = new Promise((resolve) => {
       resolve(assert.notEqual(expected, actual, name));
       this.passMessage(name);
     });
@@ -25,7 +25,7 @@ export default class Tester {
   runTests () {
     let testsRun = new Promise((resolve, reject) => {
       if (this.tests.length > 0) {
-        Promise.all(this.tests).then(value => {
+        Promise.all(this.tests).then(() => {
           Tester.colourConsole('green', `=> All ${this.name} tests passed`);
           resolve(true);
         }).catch(reason => {
@@ -50,9 +50,6 @@ export default class Tester {
   }
 
   failMessage (fail) {
-    let msg = `=> fail: ${fail.name} - ${fail.message}\n`;
-    msg += `=>       expected: ${fail.expected}\n`;
-    msg += `=>       actual:   ${fail.actual}`;
     Tester.colourConsole('red', fail);
   }
 }
