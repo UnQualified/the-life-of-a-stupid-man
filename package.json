@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "eslint src/",
-    "start": "live-server"
+    "start": "live-server",
+    "build": "npm run bundle-script && npm run copy-assets && npm run dropbox",
+    "bundle-script": "jspm bundle-sfx --minify src/main.js dist/scripts/main.bundle.js",
+    "copy-assets": "cp -r assets/ dist/",
+    "dropbox": "cp -r dist/ ~/Dropbox/Public/Games/Sparks/"
   },
   "author": "",
   "license": "ISC",
