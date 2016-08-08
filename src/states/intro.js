@@ -3,6 +3,7 @@ import Player from 'player';
 // import GameObject from 'gameObject'
 import NarrativeText from 'narrativeText';
 import Environment from 'environment';
+import BackgroundImage from 'background-image';
 import { sparks } from '../objects/snippets';
 
 export class Intro extends Phaser.State {
@@ -18,6 +19,9 @@ export class Intro extends Phaser.State {
     this.narrText = new NarrativeText(this.game, 0, 0, sparks[0], timeDelay);
 
     // static objects
+    for (let i = 0; i < 5; i++) {
+      new BackgroundImage(this.game, 10 + (500 * i), this.yOffset, 'background-1', 0.6);
+    }
     this.game.add.sprite(400, 80 + this.yOffset, 'long-building');
     this.zero = this.game.add.sprite(0, this.yOffset * 2, '');
     /*

@@ -17,6 +17,7 @@ System.config({
     "assert": "github:jspm/nodelibs-assert@0.1.0",
     "babel": "npm:babel-core@5.8.38",
     "babel-runtime": "npm:babel-runtime@5.8.38",
+    "background-image": "./src/objects/BackgroundImage",
     "contextMenu": "./src/objects/ContextMenu",
     "core-js": "npm:core-js@1.2.7",
     "environment": "./src/objects/Environment",

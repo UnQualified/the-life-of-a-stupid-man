@@ -10,6 +10,7 @@ export class Load extends Phaser.State {
     this.game.load.image('person', 'assets/images/person.png');
     this.game.load.image('cafe', 'assets/images/cafe.png');
     this.game.load.image('long-building', 'assets/images/long-building.png');
+    this.game.load.image('background-1', 'assets/images/background-1.png');
 
     this.game.load.spritesheet('player', 'assets/spritesheets/stupid-man.png', 65, 94, 12);
 
