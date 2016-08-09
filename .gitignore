@@ -2,3 +2,5 @@ node_modules
 jspm_packages
 dist/*
 !dist/index.html
+storyboard.md
+ideas.md
